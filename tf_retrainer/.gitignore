@@ -6,3 +6,4 @@ logs/*i
 __pycache__/
 tensorflow/
 notebooks/.ipynb_checkpoints/
+models/

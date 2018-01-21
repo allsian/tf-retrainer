@@ -6,4 +6,10 @@ cd tf_retrainer  # enter the package directory
 
 pip3 install -r REQUIREMENTS.txt  # install/update required packages
 
+
+git submodule init
+
+git submodule update
+
+
 python3 image_download.py 10 1
