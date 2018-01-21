@@ -1,3 +1,7 @@
+bs4
+opencv-python
+pandas
+scipy
 numpy
 nltk
 matplotlib

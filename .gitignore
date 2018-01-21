@@ -7,3 +7,5 @@ __pycache__/
 tensorflow/
 notebooks/.ipynb_checkpoints/
 *.pb
+/dist
+/build
