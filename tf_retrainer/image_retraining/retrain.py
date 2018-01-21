@@ -1086,6 +1086,8 @@ def main(_):
     init = tf.global_variables_initializer()
     sess.run(init)
 
+    saver = tf.train.Saver()
+
     # Run the training for as many cycles as requested on the command line.
     for i in range(FLAGS.how_many_training_steps):
       # Get a batch of input bottleneck values, either calculated fresh every
@@ -1149,6 +1151,10 @@ def main(_):
         tf.logging.info('Save intermediate result to : ' +
                         intermediate_file_name)
         save_graph_to_file(sess, graph, intermediate_file_name)
+
+      if i % 1000 == 0:
+        save_path = saver.save(sess, '/tmp/checkpoints/stackline-model')
+        print("Model saved in file: %s" % save_path)
 
     # We've completed all our training, so run a final test evaluation on
     # some new images we haven't used before.
