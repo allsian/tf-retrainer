@@ -13,7 +13,8 @@ import itertools
 SYNSET_PATH = "assets/image_net"
 IMG_PATH = "data/images/"
 
-CIFAR10 = ['airplane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']  # automobile changed to car
+CIFAR10 = ['airplane', 'car', 'bird', 'cat', 'deer',
+           'dog', 'frog', 'horse', 'ship', 'truck']  # automobile changed to car
 
 
 def get_all_synsets():
@@ -23,12 +24,12 @@ def get_all_synsets():
     :return:
     :rtype:
     """
-    if not os.path.exists(IMG_PATH):                                                   # check if image folder exists
-        os.makedirs(IMG_PATH)                                                          # if not, create the folder
-    text = open('assets/image_net/image_net_synsets.txt', 'r').read()                  # open synsets file
-    synsets_text = text.replace('\n', '').replace('\ ', '')                            # remove line breaks
-    synsets_dict = ast.literal_eval(synsets_text)                                      # read text as a dictionary
-    synsets = list(synsets_dict.values())                                              # create list of synsets
+    if not os.path.exists(IMG_PATH):  # check if image folder exists
+        os.makedirs(IMG_PATH)  # if not, create the folder
+    text = open('assets/image_net/image_net_synsets.txt', 'r').read()  # open synsets file
+    synsets_text = text.replace('\n', '').replace('\ ', '')  # remove line breaks
+    synsets_dict = ast.literal_eval(synsets_text)  # read text as a dictionary
+    synsets = list(synsets_dict.values())  # create list of synsets
 
     return synsets
 
@@ -42,24 +43,24 @@ def get_image_urls(search_item):
     """
 
     print("Getting image urls...")
-    url = "http://www.image-net.org/search?q={}".format(search_item)                    # search image by wnid
-    html = requests.get(url)                                                            # url connect
-    print("here")
-    soup = BeautifulSoup(html.text, 'lxml')                                             # create soup object
+    # search image by wnid
+    url = "http://www.image-net.org/search?q={}".format(search_item)
+    html = requests.get(url)  # url connect
+    soup = BeautifulSoup(html.text, 'lxml')  # create soup object
     tag = None
-
-    print('here')
-    for search in soup.find(name='table', attrs={'class', 'search_result'}):            # find table
-        for a in search.findAll(name='a'):                                              # find href tag
-            try:                                                                        # prevent breaking
-                tag = a['href'].split('?')[1]                                           # href w/ wnid link
+    # find table
+    for search in soup.find(name='table', attrs={'class', 'search_result'}):
+        for a in search.findAll(name='a'):  # find href tag
+            try:  # prevent breaking
+                tag = a['href'].split('?')[1]   # href w/ wnid link
             except IndexError:
                 pass
 
     image_urls = []
-    url = "http://www.image-net.org/api/text/imagenet.synset.geturls?{}".format(tag)    # image net search id
+    # image net search id
+    url = "http://www.image-net.org/api/text/imagenet.synset.geturls?{}".format(tag)
     try:
-        html = requests.get(url)                                                        # html for search
+        html = requests.get(url)  # html for search
         image_urls = [image_url for image_url in html.text.split('\r\n')]
     except:
         pass
@@ -75,15 +76,15 @@ def make_folder(folder_name):
     :type folder_name: str
     """
     try:
-        if not os.path.exists(IMG_PATH + folder_name.lower()):                         # check if folder exists
-            os.makedirs(IMG_PATH + folder_name.lower())                                # create folder
+        if not os.path.exists(IMG_PATH + folder_name.lower()):  # check if folder exists
+            os.makedirs(IMG_PATH + folder_name.lower())  # create folder
     except Exception as e:
         print("Error: %s" % e)
 
 
 def url_to_image(url):
     """
-        download image from url
+    download image from url
 
     :param url: image url
     :type url: str
@@ -92,17 +93,17 @@ def url_to_image(url):
     """
     while True:
         try:
-            resp = urllib.request.urlopen(url, timeout=3)                               # break in case of a load error
-            image = np.asarray(bytearray(resp.read()), dtype="uint8")                   # convert to numpy array
-            image = cv2.imdecode(image, cv2.IMREAD_COLOR)                               # read the color image
-            return image                                                                # return the image
+            resp = urllib.request.urlopen(url, timeout=3)  # break in case of a load error
+            image = np.asarray(bytearray(resp.read()), dtype="uint8")  # convert to numpy array
+            image = cv2.imdecode(image, cv2.IMREAD_COLOR)  # read the color image
+            return image  # return the image
         except Exception as e:  #
-            return "ERROR: %s" % e                                                      # error return
+            return "ERROR: %s" % e  # error return
 
 
 def resize(image, image_size):
     """
-        resize images
+    resize images
 
     :param image_file: jpg file of image
     :type image_file: str
@@ -111,9 +112,9 @@ def resize(image, image_size):
     :return: resized
     :rtype: OpenCV image
     """
-    resized = cv2.resize(image,                                                         # image to resize
-                         (image_size, image_size),                                      # define new image size
-                         interpolation=cv2.INTER_AREA)                                  # used for reducing size
+    resized = cv2.resize(image,  # image to resize
+                         (image_size, image_size),  # define new image size
+                         interpolation=cv2.INTER_AREA)  # used for reducing size
 
     return resized
 
@@ -173,9 +174,10 @@ def image_search(search_terms, images=1000):
     :param images: number of images to download
     :type images: int
     """
-    for search in search_terms:                                                         # iterate over searches
-        if search not in os.listdir("images/") or len(os.listdir("images/")) < images:  # ignore populated categories
-            get_images(search, num_images=images)                                       # get the images
+    for search in search_terms:  # iterate over searches
+        if search not in os.listdir("images/") or \
+                len(os.listdir("images/")) < images:  # ignore existing category
+            get_images(search, num_images=images)  # get the images
 
 
 def main(num_images, sample=None, synsets=None, all_synsets=False):
@@ -192,17 +194,17 @@ def main(num_images, sample=None, synsets=None, all_synsets=False):
     print("Starting image download...")
     if all_synsets or synsets is None:
         print("Gathering from all synsets...")
-        synsets = get_all_synsets()                                                    # search for member's images
+        synsets = get_all_synsets()  # search for member's images
 
-    np.random.shuffle(synsets)                                                          # randomize search term order
+    np.random.shuffle(synsets)  # randomize search term order
     if sample:
-        synsets = np.random.choice(synsets, sample)                                     # random sample of choices
-    image_search(synsets, images=num_images)                                            # run image search
+        synsets = np.random.choice(synsets, sample)  # random sample of choices
+    image_search(synsets, images=num_images)  # run image search
     print("Done.")
 
 
 if __name__ == "__main__":
     try:
-        main(sys.argv[1], sample=sys.argv[2])                                           # allow command line input
+        main(sys.argv[1], sample=sys.argv[2])  # allow command line input
     except:
-        main(10, 1, synsets=CIFAR10)                                                    # execute whole script
+        main(10, 10, synsets=CIFAR10)  # execute whole script

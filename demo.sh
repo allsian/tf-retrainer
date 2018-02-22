@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 
-echo running the retrainer on CIFAR10 images
+cd tf_retrainer
 
-cd tf_retrainer  # enter the package directory
-
-pip3 install -r REQUIREMENTS.txt  # install/update required packages
-
-
-git submodule init
-
-git submodule update
-
-
-python3 image_download.py 10 1
+echo "retraining the model..."
+# retrain the last layer of the inception net on the training data
+python3 image_retraining/retrain.py \
+    --image_dir /repos/doodle-bot/doodle-bot/images/\
+    --output_graph models/stackline.pb\
+    --intermediate_output_graphs_dir logs/intermediate_graph/\
+    --intermediate_store_frequency 500\
+    --how_many_training_steps 5000\
+    --output_labels data/predictions/output_labels.txt\
+    --summaries_dir logs/retrain_logs\
+    --print_misclassified_test_images True\
+    --model_dir models/ \
+    --learning_rate 0.009 \
+    --architecture mobilenet_0.50_224\
+    --final_tensor_name stackline-output

@@ -1,63 +1,10 @@
-computer components
-monitors
-televisions
-video cameras
-monitor mounts
-range extenders
-game consoles
-switches
-tripods and monopods
-video games
-ink and toner
-batteries
-printers and scanners
-computer data storage
-headsets
-3d printers and supplies
-laptop accessories
-keyboards
-desktops
-car subwoofers and amplifiers
-tablets
-laptops
-car and vehicle electronics
-headphones
-power management
-wearable technology
-cameras
-television accessories
-modems
-video cards
-video projectors
-car dash cams
-binoculars and scopes
-standing desks
-mobile phone accessories
-ebook readers and accessories
-camera lenses
-tv mounts and stands
-computer accessories
-security and surveillance
-calculators
-routers and networking
-microphones and accessories
-memory cards and flash drives
-drones
-telescopes
-gaming accessories
-camera accessories
-blu ray and dvd players
-radar detectors
-mice
-cases and screen protectors
-cables
-tablet accessories
-motherboards
-unlocked cell phones
-streaming media
-monitor risers
-two way radios
-office electronics
-portable audio and speakers
-home audio
-gps and navigation
+cat
+car
+dog
+truck
+bird
+airplane
+ship
+frog
+horse
+deer

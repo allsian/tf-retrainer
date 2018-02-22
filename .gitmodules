@@ -1,0 +1,3 @@
+[submodule "cifar-extender"]
+	path = cifar-extender
+	url = https://github.com/messiest/cifar-extender.git
