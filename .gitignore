@@ -9,3 +9,6 @@ notebooks/.ipynb_checkpoints/
 *.pb
 /dist
 /build
+
+# submodules
+cifar-extender/*

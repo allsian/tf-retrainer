@@ -5,7 +5,7 @@ cd tf_retrainer
 echo "retraining the model..."
 # retrain the last layer of the inception net on the training data
 python3 image_retraining/retrain.py \
-    --image_dir /repos/doodle-bot/doodle-bot/images/\
+    --image_dir cifar-extender/data/images/\
     --output_graph models/stackline.pb\
     --intermediate_output_graphs_dir logs/intermediate_graph/\
     --intermediate_store_frequency 500\
