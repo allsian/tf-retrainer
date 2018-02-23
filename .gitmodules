@@ -1,3 +1,6 @@
 [submodule "cifar-extender"]
 	path = cifar-extender
-	url = https://github.com/messiest/cifar-extender.git
+	url = https://github.com/messiest/cifar-extender
+[submodule "tf_retrainer/cifar-extender"]
+	path = tf_retrainer/cifar-extender
+	url = https://github.com/messiest/cifar-extender
